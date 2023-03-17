@@ -1,12 +1,6 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-
-//have index.ts that exports *
-//cannot do this if it export default
-import { UserLogin } from "./pages/UserLogin";
-
-// import { UserLogin } from './pages/UserLogin';
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
     return (
@@ -20,9 +14,6 @@ function App() {
                     Learn React
                 </a>
             </header>
-            <main>
-                <UserLogin />
-            </main>
         </div>
     );
 }
