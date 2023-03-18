@@ -1,38 +1,34 @@
-import React, { useReducer } from "react";
-import { LoginState, LoginReducer } from "../context/LoginReducer";
+import React, { useContext, useReducer } from "react";
+import { LoginState, LoginReducer, LoginActionTypes } from "../context/LoginReducer";
+import { Link } from "react-router-dom";
+import LoginContext from "../context/LoginContext";
 
-export const initialState: LoginState = {
-    username: "",
-    password: "",
-    error: "",
-    isLoading: false,
-    isLoggedIn: false,
-};
+export async function login({ username, password }: LoginState, dispatch: (value: LoginActionTypes) => void) {
+    return new Promise<void>((resolve, reject) => {
+        setTimeout(() => {
+            if (password === "password") {
+                resolve();
+                dispatch({ type: "success", isLoggedIn: true, isLoading: false });
+            } else {
+                reject();
+            }
+        }, 200);
+    });
+}
 
 const LoginForm: React.FC = () => {
     // const [username, setUsername] = useState("");
     // const [password, setPassword] = useState("");
 
-    const [state, dispatch] = useReducer(LoginReducer, initialState);
-    const { username, password, error, isLoading, isLoggedIn } = state; //Make sure over here is correct!
-
+    // const [state, dispatch] = useReducer(LoginReducer, initialState);
+    // const { username, password, error, isLoading, isLoggedIn } = state; //Make sure over here is correct!
+    const { state, dispatch } = useContext(LoginContext);
+    const { username, password, error, isLoading, isLoggedIn } = state;
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        async function login({ username, password }: LoginState) {
-            return new Promise<void>((resolve, reject) => {
-                setTimeout(() => {
-                    if (username === "akmal" && password === "password") {
-                        resolve();
-                        dispatch({ type: "success", isLoggedIn: true, isLoading: false });
-                    } else {
-                        reject();
-                    }
-                }, 200);
-            });
-        }
         dispatch({ type: "login" });
         try {
-            await login(state);
+            await login(state, dispatch);
         } catch (error) {
             dispatch({
                 type: "failure",
@@ -45,10 +41,13 @@ const LoginForm: React.FC = () => {
     return (
         <>
             {isLoggedIn ? (
-                <>
+                <div>
                     <h1>Welcome {username}!</h1>
                     <button onClick={() => dispatch({ type: "logout", isLoggedIn: false })}>Log Out</button>
-                </>
+                    <Link to={"/todoList"}>
+                        <button onClick={() => {}}>Go to your todoList</button>
+                    </Link>
+                </div>
             ) : (
                 <form className="form" onSubmit={handleSubmit}>
                     {error && <p className="error">{error}</p>}
@@ -63,6 +62,7 @@ const LoginForm: React.FC = () => {
                                 fieldName: "username",
                                 payload: e.currentTarget.value,
                             });
+                            console.log(`username is: ${username}`);
                         }}
                     />
                     <input
@@ -76,6 +76,7 @@ const LoginForm: React.FC = () => {
                                 fieldName: "password",
                                 payload: e.currentTarget.value,
                             });
+                            console.log(`password is: ${password}`);
                         }}
                     />
                     <button className="submit" type="submit" disabled={isLoading}>

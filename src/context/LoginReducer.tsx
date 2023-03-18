@@ -8,9 +8,9 @@ export type LoginActionTypes =
 export type LoginState = {
     username: string;
     password: string;
-    error?: string;
-    isLoading?: boolean;
-    isLoggedIn?: boolean;
+    error: string;
+    isLoading: boolean;
+    isLoggedIn: boolean;
 };
 
 export function LoginReducer(state: LoginState, action: LoginActionTypes): LoginState {
