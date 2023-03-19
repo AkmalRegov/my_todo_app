@@ -4,14 +4,23 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./pages/Error/Error";
 import LoginProvider from "./context/LoginProvider";
+import * as ROUTES from "./routes";
+import * as PAGES from "./pages";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: ROUTES.signIn,
         element: <App />,
-        errorElement: <ErrorPage />,
+        errorElement: <PAGES.ErrorPage />,
+    },
+    {
+        path: ROUTES.welcome,
+        element: <PAGES.Welcome />,
+    },
+    {
+        path: ROUTES.todoList,
+        element: <PAGES.TodoList />,
     },
 ]);
 

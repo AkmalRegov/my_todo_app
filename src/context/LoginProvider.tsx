@@ -14,6 +14,7 @@ export interface LoginProviderProps {
     children: React.ReactNode;
 }
 
+//btw, context does not persist if user navigates through browser's URL searchbar
 const LoginProvider: React.FC<LoginProviderProps> = ({ children }: LoginProviderProps) => {
     const [state, dispatch] = useReducer(LoginReducer, initialState);
     const loginValue: LoginContextProps = {

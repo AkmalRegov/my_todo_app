@@ -7,7 +7,7 @@ export type RouterError = {
     message: string;
 };
 
-export default function ErrorPage() {
+export function ErrorPage() {
     const error = useRouteError() as RouterError;
     const { state } = useContext(LoginContext);
     const { username } = state;
