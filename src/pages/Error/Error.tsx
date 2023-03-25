@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useRouteError } from "react-router-dom";
-import LoginContext from "../../context/LoginContext";
+import { LoginContext } from "../../context/Login/LoginContext";
 
 export type RouterError = {
     statusText: string;

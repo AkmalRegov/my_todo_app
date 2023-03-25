@@ -1,10 +1,3 @@
-export type LoginActionTypes =
-    | { type: "field"; fieldName: string; payload: string }
-    | { type: "login" }
-    | { type: "failure"; error: "Incorrect username or password!"; isLoggedIn: boolean; isLoading: boolean }
-    | { type: "success"; isLoggedIn: boolean; isLoading: boolean }
-    | { type: "logout"; isLoggedIn: boolean };
-
 export type LoginState = {
     username: string;
     password: string;
@@ -12,6 +5,13 @@ export type LoginState = {
     isLoading: boolean;
     isLoggedIn: boolean;
 };
+
+export type LoginActionTypes =
+    | { type: "field"; fieldName: string; payload: string }
+    | { type: "login" }
+    | { type: "failure"; error: "Incorrect username or password!"; isLoggedIn: boolean; isLoading: boolean }
+    | { type: "success"; isLoggedIn: boolean; isLoading: boolean }
+    | { type: "logout"; isLoggedIn: boolean };
 
 export function LoginReducer(state: LoginState, action: LoginActionTypes): LoginState {
     switch (action.type) {

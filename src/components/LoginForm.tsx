@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginContext from "../context/LoginContext";
+import { LoginContext } from "../context/Login/LoginContext";
 
 const LoginForm: React.FC = () => {
     //*HOOKS and VARIABLES

@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginProvider from "./context/LoginProvider";
+import LoginProvider from "./context/Login/LoginProvider";
+import TodoProvider from "./context/Todo/TodoProvider";
 import * as ROUTES from "./routes";
 import * as PAGES from "./pages";
 
@@ -29,7 +30,9 @@ root.render(
     <React.StrictMode>
         {/* <App /> */}
         <LoginProvider>
-            <RouterProvider router={router} />
+            <TodoProvider>
+                <RouterProvider router={router} />
+            </TodoProvider>
         </LoginProvider>
     </React.StrictMode>,
 );

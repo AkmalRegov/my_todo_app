@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoginContext from "../../context/LoginContext";
+import { LoginContext } from "../../context/Login/LoginContext";
 
 export function Welcome() {
     const { state, dispatch } = useContext(LoginContext);

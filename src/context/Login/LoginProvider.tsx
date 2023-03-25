@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import LoginContext, { LoginContextProps } from "./LoginContext";
+import { LoginContext, LoginContextProps } from "./LoginContext";
 import { LoginReducer, LoginState } from "./LoginReducer";
 
 export const initialState: LoginState = {
