@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { TodoContext, TodoContextProps } from "./TodoContext";
 import { TodoReducer, TodoState } from "./TodoReducer";
 
@@ -16,7 +16,7 @@ const TodoProvider: React.FC<TodoProviderProps> = ({ children }: TodoProviderPro
         state: state,
         dispatch: dispatch,
     };
+    useEffect(() => {}, [state, dispatch]);
     return <TodoContext.Provider value={todoValue}>{children}</TodoContext.Provider>;
 };
-
 export default TodoProvider;
