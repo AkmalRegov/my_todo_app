@@ -1,6 +1,51 @@
 import { useContext, useState, memo } from "react";
 import { LoginContext } from "../../context/Login/LoginContext";
 import * as TODO from "../../context/Todo";
+import styled from "styled-components";
+import { Navbar } from "../../components/Navbar";
+
+const TextCenter = styled.p`
+    text-align: center;
+`;
+
+const H1Center = styled.h1`
+    text-align: center;
+`;
+
+const TodoMain = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f7f9fb;
+    min-height: 100vh;
+`;
+
+const TodoDivMarginTop = styled.div`
+    margin-top: 60px;
+`;
+
+const TodoClickDeleteDiv = styled.div`
+    display: flex;
+    gap: 1rem;
+`;
+
+const ClickableTodoDiv = styled.div`
+    display: flex;
+    cursor: pointer;
+    max-width: max-content;
+`;
+
+const DeleteDiv = styled.div`
+    display: flex;
+    gap: 1rem;
+`;
+
+//use maxWidth: "max-content" to restrict size to content
+const Li = styled.li`
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+`;
 
 const ToggleEditButton: React.FC<{
     item: TODO.Todos;
@@ -29,25 +74,26 @@ const TodoCheckDelete: React.FC<{
 }> = ({ item, index, TodoDispatch, children }) => {
     return (
         <>
-            <div
-                style={{ cursor: "pointer", maxWidth: "max-content" }}
-                onClick={() => {
-                    TodoDispatch({ type: "checked", id: item.id, isChecked: !item.isChecked, index: index });
-                }}
-            >
-                {item.desc}
-                <input type={"checkbox"} checked={item.isChecked} onChange={() => {}}></input>
-            </div>
-            <div style={{ display: "flex", gap: "1em" }}>
-                {children}
-                <button
+            <TodoClickDeleteDiv>
+                <ClickableTodoDiv
                     onClick={() => {
-                        TodoDispatch({ type: "delete", id: item.id });
+                        TodoDispatch({ type: "checked", id: item.id, isChecked: !item.isChecked, index: index });
                     }}
                 >
-                    Delete
-                </button>
-            </div>
+                    {item.desc}
+                    <input type={"checkbox"} checked={item.isChecked} onChange={() => {}}></input>
+                </ClickableTodoDiv>
+                <DeleteDiv>
+                    {children}
+                    <button
+                        onClick={() => {
+                            TodoDispatch({ type: "delete", id: item.id });
+                        }}
+                    >
+                        Delete
+                    </button>
+                </DeleteDiv>
+            </TodoClickDeleteDiv>
         </>
     );
 };
@@ -55,12 +101,7 @@ const TodoCheckDelete: React.FC<{
 const TodoLi: React.FC<{ item: TODO.Todos; children: React.ReactNode }> = ({ item, children }) => {
     return (
         <>
-            <li
-                key={item.id} //use maxWidth: "max-content" to restrict size to content
-                style={{ maxWidth: "max-content", display: "flex", flexDirection: "column" }}
-            >
-                {children}
-            </li>
+            <Li key={item.id}>{children}</Li>
         </>
     );
 };
@@ -140,17 +181,11 @@ export function TodoList() {
     //*FC
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <div
-                    style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <h1>This is your todoList</h1>
-                    <p>Btw, hi there {username}!</p>
+            <Navbar menu="Todo List" />
+            <TodoMain>
+                <TodoDivMarginTop>
+                    <H1Center>This is your todoList</H1Center>
+                    <TextCenter>Btw, hi there {username}!</TextCenter>
 
                     <div>
                         <div>
@@ -158,7 +193,7 @@ export function TodoList() {
                                 <TodoMap todoList={TodoState.todos} TodoDispatch={TodoDispatch} />
                             )}
                         </div>
-                        <form style={{ display: "flex" }} onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
                             <input
                                 type="text"
                                 placeholder="add a todo here!"
@@ -170,8 +205,8 @@ export function TodoList() {
                             <button type="submit">Add</button>
                         </form>
                     </div>
-                </div>
-            </div>
+                </TodoDivMarginTop>
+            </TodoMain>
         </>
     );
 }

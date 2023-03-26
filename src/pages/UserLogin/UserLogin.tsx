@@ -1,12 +1,123 @@
 // import LoginForm from "../../components/LoginForm";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "../../components/Navbar";
 import { LoginContext } from "../../context/Login";
+import styled from "styled-components";
+
+const LoginMain = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f7f9fb;
+    min-height: 100vh;
+`;
+
+const LoginDivForm = styled.div`
+    margin-top: 118px;
+`;
+
+const LoginPadding = styled.div`
+    padding: 1rem;
+`;
+
+const LoginAccountText = styled.p`
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+`;
+
+const LoginUsernamePasswordDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 10px;
+`;
+
+const LoginFieldDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+const LoginInputBox = styled.input`
+    height: 45px;
+    width: 363px;
+    border-radius: 0.375rem;
+    font-size: medium;
+    padding-left: 0.375rem;
+`;
+
+const LoginTCDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+`;
+
+const LoginContinueButton = styled.button`
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 0.5rem;
+    gap: 20px;
+    border: 2px #00c649 solid;
+    background-color: #00c649;
+    border-radius: 0.375rem;
+    width: 363px;
+    cursor: pointer;
+`;
+
+const LoginTCPara = styled.p`
+    margin-top: 11px;
+    font-size: 12px;
+`;
+
+const LoginTCAnchor = styled.a`
+    font-size: 12px;
+    font-size: 500;
+    color: #3e51fa;
+`;
+
+export const NewLogin: React.FC = () => {
+    return (
+        <LoginMain>
+            <LoginDivForm>
+                <LoginPadding>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                        }}
+                    >
+                        <LoginAccountText>Login to your account</LoginAccountText>
+                        <LoginUsernamePasswordDiv>
+                            <LoginFieldDiv>
+                                <label htmlFor="email">Username</label>
+                                <LoginInputBox type="text" name="username" />
+                            </LoginFieldDiv>
+                            <LoginFieldDiv>
+                                <label htmlFor="username">Password</label>
+                                <LoginInputBox type="text" name="password" />
+                            </LoginFieldDiv>
+                        </LoginUsernamePasswordDiv>
+                        <LoginTCDiv>
+                            <LoginContinueButton>Continue</LoginContinueButton>
+                            <LoginTCPara>
+                                By continuing, you agree to the
+                                <LoginTCAnchor href={""}> Terms of Service</LoginTCAnchor> and
+                                <LoginTCAnchor href={""}> Privacy Policy</LoginTCAnchor>
+                            </LoginTCPara>
+                        </LoginTCDiv>
+                    </form>
+                </LoginPadding>
+            </LoginDivForm>
+        </LoginMain>
+    );
+};
 
 export const UserLogin: React.FC = () => {
     //*HOOKS and VARIABLES
     const { state, dispatch } = useContext(LoginContext);
-    const { username, password, error, isLoading, isLoggedIn } = state;
+    const { username, password, error, isLoggedIn } = state;
     const navigate = useNavigate();
     useEffect(() => {
         if (isLoggedIn) {
@@ -46,55 +157,57 @@ export const UserLogin: React.FC = () => {
     //*FC
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <div
-                    id="error-page"
-                    style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                        height: "90vh",
-                    }}
-                >
-                    <form className="form" onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
-                        {error && <p className="error">{error}</p>}
-                        <p>Please Login!</p>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
-                            <input
-                                type="text"
-                                placeholder="username"
-                                value={username}
-                                onChange={(e) => {
-                                    dispatch({
-                                        type: "field",
-                                        fieldName: "username",
-                                        payload: e.currentTarget.value,
-                                    });
-                                    console.log(`username is: ${username}`);
-                                }}
-                            />
-                            <input
-                                type="password"
-                                placeholder="password"
-                                autoComplete="new-password"
-                                value={password}
-                                onChange={(e) => {
-                                    dispatch({
-                                        type: "field",
-                                        fieldName: "password",
-                                        payload: e.currentTarget.value,
-                                    });
-                                    console.log(`password is: ${password}`);
-                                }}
-                            />
-                            <button className="submit" type="submit" disabled={isLoading}>
-                                {isLoading ? "Logging in..." : "Log In"}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <Navbar />
+            <LoginMain>
+                <LoginDivForm>
+                    <LoginPadding>
+                        <form onSubmit={handleSubmit}>
+                            {error && <p className="error">{error}</p>}
+                            <LoginAccountText>Login to your account</LoginAccountText>
+                            <LoginUsernamePasswordDiv>
+                                <LoginFieldDiv>
+                                    <label htmlFor="email">Username</label>
+                                    <LoginInputBox
+                                        type="text"
+                                        name="username"
+                                        value={username}
+                                        onChange={(e) => {
+                                            dispatch({
+                                                type: "field",
+                                                fieldName: "username",
+                                                payload: e.currentTarget.value,
+                                            });
+                                        }}
+                                    />
+                                </LoginFieldDiv>
+                                <LoginFieldDiv>
+                                    <label htmlFor="username">Password</label>
+                                    <LoginInputBox
+                                        type="password"
+                                        name="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            dispatch({
+                                                type: "field",
+                                                fieldName: "password",
+                                                payload: e.currentTarget.value,
+                                            });
+                                        }}
+                                    />
+                                </LoginFieldDiv>
+                            </LoginUsernamePasswordDiv>
+                            <LoginTCDiv>
+                                <LoginContinueButton>Continue</LoginContinueButton>
+                                <LoginTCPara>
+                                    By continuing, you agree to the
+                                    <LoginTCAnchor href={""}> Terms of Service</LoginTCAnchor> and
+                                    <LoginTCAnchor href={""}> Privacy Policy</LoginTCAnchor>
+                                </LoginTCPara>
+                            </LoginTCDiv>
+                        </form>
+                    </LoginPadding>
+                </LoginDivForm>
+            </LoginMain>
         </>
     );
 };

@@ -25,22 +25,40 @@ const LanguageDiv = styled.div`
     margin-right: 1rem;
 `;
 
-export const LoginNavbar: React.FC = () => {
+const LoginDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 2rem;
+`;
+
+const ClickableDivLogin = styled.div`
+    cursor: pointer;
+    color: #00c649;
+`;
+
+const Loginhr = styled.hr`
+    height: 0.25rem;
+    margin: 0;
+    background-color: #00c649;
+`;
+
+export const Navbar: React.FC<{ menu?: string }> = ({ menu }) => {
     return (
         <>
             <div>
                 <LogoLanguageDiv>
                     <LogoDiv>Logo here</LogoDiv>
-                    <div className="mr-4 flex cursor-pointer items-center gap-[20px] border-2 border-solid border-black p-2 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+                    <LanguageDiv>
                         English
                         <IoIosArrowDown />
-                    </div>
+                    </LanguageDiv>
                 </LogoLanguageDiv>
-                <div className="flex justify-center gap-24 text-2xl">
-                    <div className="cursor-pointer text-[#00C649]">
-                        Login <hr className="h-1 bg-[#00C649]" />
-                    </div>
-                </div>
+                <LoginDiv>
+                    <ClickableDivLogin>
+                        {menu ?? "Login"} <Loginhr />
+                    </ClickableDivLogin>
+                </LoginDiv>
             </div>
         </>
     );
