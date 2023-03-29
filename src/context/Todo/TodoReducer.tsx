@@ -1,5 +1,5 @@
 export type Todos = {
-    id: number;
+    id: string;
     desc: string;
     isChecked: boolean;
     isEditing: boolean;
@@ -10,11 +10,11 @@ export type TodoState = {
 };
 
 export type TodoActionTypes =
-    | { type: "add"; id: number; desc: string; isChecked: boolean; isEditing: boolean; index: number }
-    | { type: "delete"; id: number }
-    | { type: "checked"; id: number; isChecked: boolean; index: number }
-    | { type: "toggleEdit"; id: number; isEditing: boolean; index: number }
-    | { type: "editDesc"; id: number; desc: string; index: number }
+    | { type: "add"; id: string; desc: string; isChecked: boolean; isEditing: boolean }
+    | { type: "delete"; id: string }
+    | { type: "checked"; id: string; isChecked: boolean; index: number }
+    | { type: "toggleEdit"; id: string; isEditing: boolean; index: number }
+    | { type: "editDesc"; id: string; desc: string; index: number }
     | { type: "userLogOut" };
 
 export function TodoReducer(state: TodoState, action: TodoActionTypes): TodoState {

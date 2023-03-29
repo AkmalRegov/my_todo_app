@@ -8,6 +8,7 @@ import { Navbar } from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import { MdMode as EditIcon, MdEditOff as DoneEditIcon, MdDelete as DeleteIcon } from "react-icons/md";
 
+//*STYLING
 const StrikethroughAnimation = keyframes`
 	from {
 		transform: scaleX(0);
@@ -271,10 +272,7 @@ const TodoCheckDelete: React.FC<{
 const TodoItem: React.FC<{ item: TODO.Todos; children: React.ReactNode }> = ({ item, children }) => {
     return (
         <>
-            <TodoListDiv
-                key={item.id}
-                style={{ width: "480px", height: "40px", justifyContent: "center", padding: "4px" }}
-            >
+            <TodoListDiv style={{ width: "480px", height: "40px", justifyContent: "center", padding: "4px" }}>
                 {children}
             </TodoListDiv>
         </>
@@ -308,7 +306,6 @@ export function TodoList() {
     const { state: loginState, dispatch: UserDispatch } = useContext(LoginContext);
     const { username } = loginState;
     const { state: TodoState, dispatch: TodoDispatch } = useContext(TODO.TodoContext);
-    const [counter, setCounter] = useState(0);
     const [desc, setDesc] = useState("");
     const LoginH1TextRef = useRef() as React.MutableRefObject<HTMLHeadingElement>;
     const [widthLoginH1Text, setWidthLoginH1Text] = useState(0);
@@ -322,8 +319,7 @@ export function TodoList() {
         if (TodoInputRef.current !== undefined && setHeightTodoInput !== undefined) {
             setHeightTodoInput(TodoInputRef.current.clientHeight);
         }
-        setCounter(TodoState.todos.length);
-    }, [TodoState.todos.length]);
+    }, []);
 
     useEffect(() => {
         document.addEventListener("resize", () => {
@@ -339,16 +335,12 @@ export function TodoList() {
     //*FUNCTIONS
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        setCounter(() => {
-            return counter + 1;
-        });
         TodoDispatch({
             type: "add",
-            id: counter,
+            id: `${crypto.randomUUID()}`,
             desc: desc,
             isChecked: false,
             isEditing: false,
-            index: TodoState.todos.length - 1,
         });
         console.log(`The length of state.todos is: ${TodoState.todos.length}`);
         setDesc("");
@@ -363,7 +355,9 @@ export function TodoList() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                         <H1Center ref={LoginH1TextRef}>This is your todoList</H1Center>
                         <TextCenter>Btw, hi there {username}!</TextCenter>
-                        <hr style={{ width: `${widthLoginH1Text}px`, margin: "0", border: "0.1px solid #fffffe" }} />
+                        <hr
+                            style={{ width: `${widthLoginH1Text + 100}px`, margin: "0", border: "0.1px solid #fffffe" }}
+                        />
                     </div>
 
                     <TodoFormDiv>
