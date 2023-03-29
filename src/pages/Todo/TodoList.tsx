@@ -29,7 +29,7 @@ const StrikethroughMixin = css`
         background: #ffd803;
         transform-origin: center left;
         animation: ${StrikethroughAnimation} 0.5s 0s cubic-bezier(0.55, 0, 0.1, 1) 1;
-        transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+        transition: transform 0.2s cubic-bezier(0.55, 0, 0.1, 1);
     }
 `;
 
