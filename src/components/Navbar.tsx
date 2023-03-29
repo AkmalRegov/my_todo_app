@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { SiStyledcomponents as StyledComponentsLogo } from "react-icons/si";
 import { IoIosArrowDown } from "react-icons/io";
+import StyledComponentsPng from "../../src/nav-logo.png";
 
 const NavbarDiv = styled.div`
     display: flex;
@@ -39,6 +40,7 @@ const LoginDiv = styled.div`
 const ClickableDivLogin = styled.div`
     cursor: pointer;
     color: #272343;
+    margin-right: 8rem;
 `;
 
 export const Navbar: React.FC<{ menu?: string }> = ({ menu }) => {
@@ -47,7 +49,14 @@ export const Navbar: React.FC<{ menu?: string }> = ({ menu }) => {
             <div>
                 <NavbarDiv>
                     <LogoDiv>
-                        <StyledComponentsLogo size={60} />
+                        {/* <StyledComponentsLogo size={60} /> */}
+                        <div style={{ backgroundColor: "black" }}>
+                            <img
+                                src={StyledComponentsPng}
+                                alt={`A logo of styled-components that is used to style web apps`}
+                                style={{ width: "220px" }}
+                            />
+                        </div>
                     </LogoDiv>
                     <LoginDiv>
                         <ClickableDivLogin>{menu ?? "Login"}</ClickableDivLogin>
