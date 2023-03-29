@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SiStyledcomponents as StyledComponentsLogo } from "react-icons/si";
+// import { SiStyledcomponents as StyledComponentsLogo } from "react-icons/si";
 import { IoIosArrowDown } from "react-icons/io";
 import StyledComponentsPng from "../../src/nav-logo.png";
 
