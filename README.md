@@ -1,8 +1,11 @@
 # My Todo App (Regov)
 
+## Updated with styling using styled-components now!
+
 All main functions done, it can:
 
--   Login with React.context
+-   Login and TodoList with React.context
+-   useReducer for Login and TodoList
 -   Routes and not found route handling
 -   Todo page, can add, edit, delete todos
 
