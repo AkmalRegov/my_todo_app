@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/Navbar";
 import { LoginContext } from "../../context/Login";
 import styled from "styled-components";
+import { TodoContext } from "../../context/Todo";
 
 const LoginMain = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f7f9fb;
+    background-color: #bae8e8;
     min-height: 100vh;
 `;
 
@@ -25,6 +26,7 @@ const LoginAccountText = styled.p`
     text-align: center;
     font-size: 20px;
     font-weight: bold;
+    color: #2d334a;
 `;
 
 const LoginUsernamePasswordDiv = styled.div`
@@ -57,19 +59,26 @@ const LoginTCDiv = styled.div`
 const LoginContinueButton = styled.button`
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #272343;
     padding: 0.5rem;
     gap: 20px;
-    border: 2px #00c649 solid;
-    background-color: #00c649;
+    border: 2px #ffd803 solid;
+    background-color: #ffd803;
     border-radius: 0.375rem;
     width: 363px;
     cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+        background-color: #ffe803;
+        border: 2px #ffe803 solid;
+    }
 `;
 
 const LoginTCPara = styled.p`
     margin-top: 11px;
     font-size: 12px;
+    color: #2d334a;
 `;
 
 const LoginTCAnchor = styled.a`
@@ -78,52 +87,24 @@ const LoginTCAnchor = styled.a`
     color: #3e51fa;
 `;
 
-export const NewLogin: React.FC = () => {
-    return (
-        <LoginMain>
-            <LoginDivForm>
-                <LoginPadding>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                        }}
-                    >
-                        <LoginAccountText>Login to your account</LoginAccountText>
-                        <LoginUsernamePasswordDiv>
-                            <LoginFieldDiv>
-                                <label htmlFor="email">Username</label>
-                                <LoginInputBox type="text" name="username" />
-                            </LoginFieldDiv>
-                            <LoginFieldDiv>
-                                <label htmlFor="username">Password</label>
-                                <LoginInputBox type="text" name="password" />
-                            </LoginFieldDiv>
-                        </LoginUsernamePasswordDiv>
-                        <LoginTCDiv>
-                            <LoginContinueButton>Continue</LoginContinueButton>
-                            <LoginTCPara>
-                                By continuing, you agree to the
-                                <LoginTCAnchor href={""}> Terms of Service</LoginTCAnchor> and
-                                <LoginTCAnchor href={""}> Privacy Policy</LoginTCAnchor>
-                            </LoginTCPara>
-                        </LoginTCDiv>
-                    </form>
-                </LoginPadding>
-            </LoginDivForm>
-        </LoginMain>
-    );
-};
+const LoginLabelText = styled.label`
+    color: #2d334a;
+    font-weight: 500;
+`;
 
 export const UserLogin: React.FC = () => {
     //*HOOKS and VARIABLES
     const { state, dispatch } = useContext(LoginContext);
     const { username, password, error, isLoggedIn } = state;
+    const { dispatch: TodoDispatch } = useContext(TodoContext);
     const navigate = useNavigate();
     useEffect(() => {
         if (isLoggedIn) {
             navigate("/welcome");
+        } else {
+            TodoDispatch({ type: "userLogOut" });
         }
-    }, [isLoggedIn, navigate]);
+    }, [isLoggedIn, navigate, TodoDispatch]);
 
     //*FUNCTIONS
     async function login() {
@@ -131,7 +112,7 @@ export const UserLogin: React.FC = () => {
             setTimeout(() => {
                 if (password === "password") {
                     resolve();
-                    dispatch({ type: "success", isLoggedIn: true, isLoading: false });
+                    dispatch({ type: "success", error: "", isLoggedIn: true, isLoading: false });
                 } else {
                     reject();
                 }
@@ -162,11 +143,15 @@ export const UserLogin: React.FC = () => {
                 <LoginDivForm>
                     <LoginPadding>
                         <form onSubmit={handleSubmit}>
-                            {error && <p className="error">{error}</p>}
+                            {error !== "" && (
+                                <p className="error" style={{ color: "red" }}>
+                                    {error}
+                                </p>
+                            )}
                             <LoginAccountText>Login to your account</LoginAccountText>
                             <LoginUsernamePasswordDiv>
                                 <LoginFieldDiv>
-                                    <label htmlFor="email">Username</label>
+                                    <LoginLabelText htmlFor="username">Username</LoginLabelText>
                                     <LoginInputBox
                                         type="text"
                                         name="username"
@@ -181,7 +166,7 @@ export const UserLogin: React.FC = () => {
                                     />
                                 </LoginFieldDiv>
                                 <LoginFieldDiv>
-                                    <label htmlFor="username">Password</label>
+                                    <LoginLabelText htmlFor="password">Password</LoginLabelText>
                                     <LoginInputBox
                                         type="password"
                                         name="password"
@@ -199,9 +184,9 @@ export const UserLogin: React.FC = () => {
                             <LoginTCDiv>
                                 <LoginContinueButton>Continue</LoginContinueButton>
                                 <LoginTCPara>
-                                    By continuing, you agree to the
-                                    <LoginTCAnchor href={""}> Terms of Service</LoginTCAnchor> and
-                                    <LoginTCAnchor href={""}> Privacy Policy</LoginTCAnchor>
+                                    By continuing, you agree to the{" "}
+                                    <LoginTCAnchor href={""}>Terms of Service</LoginTCAnchor> and{" "}
+                                    <LoginTCAnchor href={""}>Privacy Policy</LoginTCAnchor>
                                 </LoginTCPara>
                             </LoginTCDiv>
                         </form>

@@ -8,7 +8,7 @@ const WelcomeMain = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f7f9fb;
+    background-color: #bae8e8;
     min-height: 100vh;
 `;
 
@@ -20,25 +20,38 @@ const WelcomeDiv = styled.div`
     display: flex;
     gap: 1rem;
     margin: 0 auto;
+    margin-top: 2rem;
 `;
 
 const WelcomeButtons = styled.button`
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #272343;
     padding: 0.5rem;
     gap: 20px;
-    border: 2px #00c649 solid;
-    background-color: #00c649;
+    border: 2px #ffd803 solid;
+    background-color: #ffd803;
     border-radius: 0.375rem;
     width: 200px;
     cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+        background-color: #ffe803;
+        border: 2px #ffe803 solid;
+    }
 `;
 
 const WelcomeH1 = styled.h1`
     text-align: center;
     font-size: 30px;
     font-weight: bold;
+    color: #272343;
+    margin: 0;
+`;
+
+const WelcomeHr = styled.hr`
+    border: 1px solid #fffffe;
 `;
 
 export function Welcome() {
@@ -56,6 +69,7 @@ export function Welcome() {
             <WelcomeMain>
                 <WelcomeDivMarginTop>
                     <WelcomeH1>Welcome {username}!</WelcomeH1>
+                    <WelcomeHr />
                     <WelcomeDiv>
                         <WelcomeButtons
                             onClick={() => {

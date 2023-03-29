@@ -1,8 +1,9 @@
 import React from "react";
-import { IoIosArrowDown } from "react-icons/io";
 import styled from "styled-components";
+import { SiStyledcomponents as StyledComponentsLogo } from "react-icons/si";
+import { IoIosArrowDown } from "react-icons/io";
 
-const LogoLanguageDiv = styled.div`
+const NavbarDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,6 +13,7 @@ const LogoLanguageDiv = styled.div`
 
 const LogoDiv = styled.div`
     margin-left: 1rem;
+    padding-bottom: 0.75rem;
 `;
 
 const LanguageDiv = styled.div`
@@ -23,42 +25,38 @@ const LanguageDiv = styled.div`
     filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
     padding: 0.5rem;
     margin-right: 1rem;
+    margin-bottom: 10px;
 `;
 
 const LoginDiv = styled.div`
     display: flex;
     justify-content: center;
+    padding-bottom: 4px;
     font-size: 1.5rem;
     line-height: 2rem;
 `;
 
 const ClickableDivLogin = styled.div`
     cursor: pointer;
-    color: #00c649;
-`;
-
-const Loginhr = styled.hr`
-    height: 0.25rem;
-    margin: 0;
-    background-color: #00c649;
+    color: #272343;
 `;
 
 export const Navbar: React.FC<{ menu?: string }> = ({ menu }) => {
     return (
         <>
             <div>
-                <LogoLanguageDiv>
-                    <LogoDiv>Logo here</LogoDiv>
+                <NavbarDiv>
+                    <LogoDiv>
+                        <StyledComponentsLogo size={60} />
+                    </LogoDiv>
+                    <LoginDiv>
+                        <ClickableDivLogin>{menu ?? "Login"}</ClickableDivLogin>
+                    </LoginDiv>
                     <LanguageDiv>
                         English
                         <IoIosArrowDown />
                     </LanguageDiv>
-                </LogoLanguageDiv>
-                <LoginDiv>
-                    <ClickableDivLogin>
-                        {menu ?? "Login"} <Loginhr />
-                    </ClickableDivLogin>
-                </LoginDiv>
+                </NavbarDiv>
             </div>
         </>
     );
