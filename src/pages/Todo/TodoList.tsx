@@ -41,6 +41,24 @@ const TodoStrikethrough = styled.p`
     ${(props) => (props.className !== "strikethrough" ? 0 : StrikethroughMixin)}
 `;
 
+const GreetingHr = styled.hr`
+    border-width: 0;
+    &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: ${(props) => props.style?.width};
+        height: 1px;
+        margin: 0;
+        margin-top: -0.7em;
+        background: #fffffe;
+        border: 0.1px solid #fffffe;
+        transform-origin: center left;
+        animation: ${StrikethroughAnimation} 0.5s 0s cubic-bezier(0.55, 0, 0.1, 1) 1;
+        transition: transform 0.2s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+`;
+
 const Button = styled.button`
     cursor: pointer;
     height: 30px;
@@ -76,6 +94,8 @@ const TodoForm = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: -0.5rem;
+    padding-bottom: 0.5rem;
 `;
 
 const TodoDiv = styled.div`
@@ -355,9 +375,7 @@ export function TodoList() {
                     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                         <H1Center ref={LoginH1TextRef}>This is your todoList</H1Center>
                         <TextCenter>Btw, hi there {username}!</TextCenter>
-                        <hr
-                            style={{ width: `${widthLoginH1Text + 100}px`, margin: "0", border: "0.1px solid #fffffe" }}
-                        />
+                        <GreetingHr style={{ width: `${widthLoginH1Text + 100}px` }} />
                     </div>
 
                     <TodoFormDiv>

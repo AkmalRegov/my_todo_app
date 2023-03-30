@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "../../context/Login/LoginContext";
 import { Navbar } from "../../components/Navbar";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const WelcomeMain = styled.main`
     display: flex;
@@ -50,8 +50,29 @@ const WelcomeH1 = styled.h1`
     margin: 0;
 `;
 
+const StrikethroughAnimation = keyframes`
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+`;
+
 const WelcomeHr = styled.hr`
-    border: 1px solid #fffffe;
+    border-width: 0;
+    &:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 416px;
+        height: 2px;
+        background: #fffffe;
+        border: 1px solid #fffffe;
+        transform-origin: center left;
+        animation: ${StrikethroughAnimation} 0.5s 0s cubic-bezier(0.55, 0, 0.1, 1) 1;
+        transition: transform 0.2s cubic-bezier(0.55, 0, 0.1, 1);
+    }
 `;
 
 export function Welcome() {
