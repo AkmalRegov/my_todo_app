@@ -18,6 +18,7 @@ const StrikethroughAnimation = keyframes`
 	}
 `;
 
+//if the &:after is commented, the animated line would strecth until viewport width, why??
 const StrikethroughMixin = css`
     &:after {
         content: "";
@@ -80,6 +81,14 @@ const TodoFormDiv = styled.div`
     justify-content: center;
     gap: 1rem;
     margin-top: 0.75rem;
+
+    p {
+        color: red;
+    }
+
+    [data-name="white"] {
+        background-color: black;
+    }
 `;
 
 const TodoInput = styled.input`
@@ -379,6 +388,7 @@ export function TodoList() {
                     </div>
 
                     <TodoFormDiv>
+                        <p data-name="white">This is a test!</p>
                         <TodoForm onSubmit={handleSubmit} style={{ width: `${widthLoginH1Text - 20}px` }}>
                             <TodoInput
                                 ref={TodoInputRef}
